@@ -34,16 +34,12 @@ def find_winner(matrix):
             winner = matrix[a][a+2]
             #print(f'winner is {winner} a is {a}')
 
-    if winner == 0 or winner is None:
-        print('There is no winner')
-    else:
-        print(f'winner is {winner} yay')
-
     return winner
 
-find_winner([[1, 0, 0],
-	[0, 0, 0],
-	[0, 0, 0]])
+print(find_winner([['X', 0, 'X'],
+                   ['X', 'O', 0],
+                   ['O', 0, 0]]))
+
 
 def input_format(move):
     #clean up string
@@ -74,6 +70,11 @@ def move():
 
         # clean up string
         x, y = input_format(move)
+        if x < 0 or y < 0 or x > 2 or y > 2:
+            print('your value is out of range')
+            continue
+
+        # if the square is taken player re-input the move. Else sq is empty, allow player to secure their move.
         if mat[x][y] != 0:
             print('please input new value')
             continue
@@ -82,21 +83,26 @@ def move():
             print(mat)
             i += 1
 
-
+        # display board to player
         board = display_board(x,y,board,player,15)
         print(board)
 
+        # check for winner
         winner = find_winner(mat)
-        print(winner)
 
-        if winner != 0 :
+        # stop the loop once we have a winner.
+        if winner != 0 and winner != None:
+            print(f'winner is {winner} yay')
             print('----◎[▪‿▪]◎----')
             break
+    
+    if winner == 0 or winner == None:
+        print('There is no Winner')
 
     return mat
 
 
 move()
 
-###21/12/21
-###Continue with cleaning the code tmr
+###29/12/21
+###For code review and will check out other ppls codes
